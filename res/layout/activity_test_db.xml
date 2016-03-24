@@ -1,0 +1,51 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_RelativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFaaaaaa"
+    android:clipChildren="false" >
+
+    <Button
+        android:id="@+id/insert"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="#FF000000"
+        android:onClick="onClick"
+        android:text="insert"
+        android:textColor="#FFFFFFFF" />
+
+    <Button
+        android:id="@+id/update"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="#FF000000"
+        android:onClick="onClick"
+        android:text="update"
+        android:textColor="#FFFFFFFF" />
+
+    <Button
+        android:id="@+id/query"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="#FF000000"
+        android:onClick="onClick"
+        android:text="query"
+        android:textColor="#FFFFFFFF" />
+
+    <Button
+        android:id="@+id/delete"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="#FF000000"
+        android:onClick="onClick"
+        android:text="delete"
+        android:textColor="#FFFFFFFF" />
+
+</RelativeLayout>

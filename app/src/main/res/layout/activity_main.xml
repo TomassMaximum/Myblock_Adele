@@ -4,10 +4,48 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <Button
-        android:id="@+id/button"
-        android:text="开启"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/icon_menu"
+                android:adjustViewBounds="true"
+                android:maxHeight="26dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginStart="13dp"
+                android:layout_alignParentStart="true"
+                android:src="@drawable/nav_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:layout_centerInParent="true"
+                android:maxHeight="26dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/makeblock_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/icon_link"
+                android:layout_marginEnd="13dp"
+                android:layout_marginTop="13dp"
+                android:maxHeight="26dp"
+                android:adjustViewBounds="true"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/nav_unlink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
 
 </LinearLayout>

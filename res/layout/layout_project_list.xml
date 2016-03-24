@@ -1,0 +1,87 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffefefef"
+    android:orientation="vertical"
+    android:weightSum="1536" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="160"
+        android:background="@drawable/nav_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:weightSum="2048" >
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="360" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1328"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:weightSum="10" >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                android:background="@android:color/transparent"
+                android:src="@drawable/nav_icon_makeblock" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="180"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:weightSum="10" >
+
+            <ImageView
+                android:id="@+id/project_list_img_pose"
+                style="@style/imageView_nav_left_right"
+                android:src="@drawable/common_img_pose_nor"
+                android:visibility="invisible" />
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="180"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:weightSum="10" >
+
+            <ImageView
+                android:id="@+id/project_list_img_right"
+                style="@style/imageView_nav_left_right"
+                android:src="@drawable/project_list_img_right" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/project_list_relativeLayout_dialog_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1376" >
+
+        <GridView
+            android:id="@+id/project_list_gridView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="@null"
+            android:gravity="center"
+            android:horizontalSpacing="40dp"
+            android:numColumns="3"
+            android:verticalSpacing="40dp" />
+    </RelativeLayout>
+
+</LinearLayout>

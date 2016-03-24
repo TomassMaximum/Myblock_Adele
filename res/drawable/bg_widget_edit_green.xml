@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <solid android:color="#2db9a8" />  
+   <!--  绿色：45  185  168  2db9a8
+    黄色：251 138  53   fb8a35
+    灰色：215   d7 
+    红色：250 64 78  fa404e
+    字joystick 22 143 183   168fb7 -->
+
+    <corners android:radius="5px" />
+
+    <padding
+        android:bottom="0dp"
+        android:left="0dp"
+        android:right="0dp"
+        android:top="0dp" />
+
+</shape>

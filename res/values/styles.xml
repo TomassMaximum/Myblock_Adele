@@ -1,0 +1,46 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="textView_tap_left">
+        <item name="android:textColor">@color/color_text_left_tab</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="textView_tap_widget">
+        <item name="android:textColor">#586279</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <!-- nav上的左右按钮 -->
+    <style name="imageView_nav_left_right">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">5</item>
+        <item name="android:clickable">true</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <!-- click widget时弹出框的textView style -->
+    <style name="textView_widget_edit">
+        <item name="android:textColor">#168fb7</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <!-- click widget时弹出port选择框的textView style -->
+    <style name="textView_port_select">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:clickable">false</item>
+    </style>
+
+    <style name="Dialog_Fullscreen">
+        <item name="android:backgroundDimEnabled">true</item> <!-- activity UI是否变暗 -->
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">#00000000</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+</resources>

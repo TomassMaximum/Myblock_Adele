@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+ <string name="search">搜索</string>
+    <string name="info">介紹</string>
+    <string name="disconnect_current_connection">請先斷開當前連接</string>
+    <string name="mbot_connect_success">mBot連接成功</string>
+    <string name="mbot_disconnect">mBot連接斷開</string>
+    <string name="auto_mode">自動模式</string>
+    <string name="follow_line_mode">巡線模式</string>
+    <string name="manual_mode">手動模式</string>
+    <string name="rename_success">重命名成功</string>
+    <string name="rename_can_not_null">新名字不能為空</string>
+    <string name="connect_mbot_first">請先連接mBot</string>
+    <string name="alert_confirm">確定</string>
+    <string name="alert_cancel">取消</string>
+    <string name="alert_rename_title">重命名</string>
+    <string name="alert_confirm_title">確定斷開連接?</string>
+    <string name="wait_for_searching">稍等,正在搜索</string>
+    <string name="search_begin">開始搜索</string>
+    <string name="search_exception">搜索異常，可能需要重啟手機後重試</string>
+    <string name="search_finished">搜索結束</string>
+    <string name="connect_begin">開始連接</string>
+    <string name="connect_retry">再次連接</string>
+    <string name="connect_succeed">連接成功</string>
+     <string name="connect_failed">連接失敗</string>
+    <string name="connect_dis">連接斷開</string>
+    <string name="pair_begin">開始配對</string>
+    <string name="pair_cancel">配對被取消，請重試</string>
+    <string name="pair_succeed">配對成功</string>
+    <string name="press_again_exit_app">再按壹次退出mBot</string>
+    <string name="joystick_control">搖桿控制</string>
+    <string name="gravity_control">重力控制</string>
+     <string name="shake_control">親，開始瘋狂的搖手機吧</string>
+     <string name="loading_connecting">连接中...</string>
+ <string name="speed_max_mode">最大速度</string>
+</resources>

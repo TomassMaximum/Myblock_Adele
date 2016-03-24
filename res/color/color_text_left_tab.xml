@@ -1,0 +1,7 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true" android:color="#ff27bcd4"/> <!-- 39 188 212  16:27 bc d4 -->
+    <item android:state_selected="true" android:color="#ff27bcd4"/>
+    <item android:color="#6c6c6c"/>
+
+</selector>

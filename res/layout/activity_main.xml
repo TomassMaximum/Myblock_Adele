@@ -1,0 +1,30 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <include
+        android:id="@+id/viewGroup_blockly"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/layout_blockly" />
+
+    <include
+        android:id="@+id/viewGroup_edit_pannel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/layout_edit_pannel" />
+
+    <include
+        android:id="@+id/viewGroup_project_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/layout_project_list" />
+
+    <include
+        android:id="@+id/viewGroup_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        layout="@layout/layout_search" />
+
+</RelativeLayout>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="search">Search</string>
+    <string name="app_name">MakeblockHD</string>
+    <string name="info">INFO</string>
+    <string name="disconnect_current_connection">Delete current connection first</string>
+    <string name="mbot_connect_success">mBot connect success</string>
+    <string name="mbot_disconnect">mBot disconnect</string>
+    <string name="auto_mode">Auto mode</string>
+    <string name="follow_line_mode">Follow line mode</string>
+    <string name="manual_mode">Manual mode</string>
+    <string name="rename_success">Rename success</string>
+    <string name="rename_can_not_null">New name can not be null</string>
+    <string name="connect_mbot_first">Connect mBot first</string>
+    <string name="alert_confirm">OK</string>
+    <string name="alert_cancel">Cancel</string>
+    <string name="alert_rename_title">Rename</string>
+    <string name="alert_confirm_title">Sure to disconnect?</string>
+    <string name="wait_for_searching">Wait please,searching</string>
+    <string name="search_begin">Search begins</string>
+    <string name="search_exception">Search exception,you may need rebot phone and try again</string>
+    <string name="search_finished">Search finished</string>
+    <string name="connect_begin">Connect begins</string>
+    <string name="connect_retry">Connect retry</string>
+    <string name="connect_succeed">Connect succeed</string>
+    <string name="connect_failed">Connect failed</string>
+    <string name="connect_dis">Disconnected</string>
+    <string name="pair_begin">Pair begins</string>
+    <string name="pair_cancel">Pair canceled,try again</string>
+    <string name="pair_succeed">Pair succeed</string>
+    <string name="press_again_exit_app">Press again to exit mBot</string>
+    <string name="joystick_control">Joystick control</string>
+    <string name="gravity_control">Gravity control</string>
+    <string name="shake_control">Shake your phone crazily</string>
+    <string name="loading_connecting">Connecting...</string>
+    <string name="speed_max_mode">Speed max</string>
+
+    <!-- 配置edit panel的内容 -->
+    <!-- tap1 -->
+    <string name="Move">Move</string>
+    <string name="Display">Display</string>
+    <string name="Sense">Sense</string>
+    <string name="Control">Control</string>
+    <string name="Custom">Custom</string>
+    <!-- widget icon -->
+    <!-- Move -->
+    <string name="ROBOT">ROBOT</string>
+    <string name="MOTORS">MOTORS</string>
+    <string name="SERVO">SERVO</string>
+    <!-- Display -->
+    <string name="LED_DISC">LED DISC</string>
+    <string name="LED_STRIP">LED STRIP</string>
+    <string name="BUZZER">BUZZER</string>
+    <string name="_7_SEGMENT_LED">7 SEGMENT LED</string>
+    <!-- Sense -->
+    <string name="ULTRASONIC_SENSOR">ULTRASONIC SENSOR</string>
+    <string name="BRIGHTNESS_SENSOR">BRIGHTNESS SENSOR</string>
+    <string name="LOUDNESS_SENSOR">LOUDNESS SENSOR</string>
+    <string name="TEMPERATURE_SENSOR">TEMPERATURE SENSOR</string>
+    <string name="RADAR_WARNING">RADAR WARNING</string>
+    <string name="SPEED_BAR">SPEED BAR</string>
+    <string name="LINEFOLLOW_SENSOR_STATE">LINEFOLLOW SENSOR STATE</string>
+    <!-- Control -->
+    <string name="SWITCH_STATE">SWITCH STATE</string>
+    <string name="PIR_STATE">PIR STATE</string>
+    <string name="BUTTON_STATE">BUTTON STATE</string>
+    <string name="LIMIT_SWITCH_STATE">LIMIT SWITCH STATE</string>
+    <string name="JOYSTICK_X_VALUE">JOYSTICK X VALUE</string>
+    <string name="JOYSTICK_Y_VALUE">JOYSTICK Y VALUE</string>
+    <string name="POTENTIOMETER">POTENTIOMETER</string>
+    <!-- Custom -->
+    <string name="JOYSTICK">JOYSTICK</string>
+    <string name="BUTTON">BUTTON</string>
+    <string name="SWITCH">SWITCH</string>
+    <string name="SLIDER">SLIDER</string>
+    <string name="DISPLAY">DISPLAY</string>
+
+    <!-- Button的文字 -->
+    <string name="Sprint">Sprint</string>
+    <string name="Cycle_Color">Cycle Color</string>
+    <string name="Buzz">Buzz</string>
+    <string name="Button">Button</string>
+
+</resources>

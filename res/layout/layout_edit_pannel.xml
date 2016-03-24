@@ -1,0 +1,272 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffefefef" >
+
+    <!-- 控件摆放layout -->
+
+    <RelativeLayout
+        android:id="@+id/edit_pannel_reLayout_widget"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false" >
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1536" >
+
+        <!-- 顶部bar -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="160"
+            android:background="@drawable/nav_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="2048" >
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="180"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:weightSum="10" >
+
+                <ImageView
+                    android:id="@+id/edit_pannel_img_left"
+                    style="@style/imageView_nav_left_right"
+                    android:src="@drawable/edit_pannel_img_left" />
+            </LinearLayout>
+
+            <!-- 可伸缩的segment：三种模式 -->
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="514" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="660"
+                android:background="@drawable/bg_modes"
+                android:orientation="horizontal"
+                android:padding="2dp"
+                android:weightSum="660" >
+
+                <LinearLayout
+                    android:id="@+id/edit_pannel_linearLayout_play"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:layout_weight="130"
+                    android:background="@drawable/edit_pannel_shape_bg_mode_nor"
+                    android:gravity="center"
+                    android:orientation="horizontal" >
+
+                    <ImageButton
+                        android:id="@+id/edit_pannel_img_btn_play"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:clickable="false"
+                        android:src="@drawable/edit_pannel_img_btn_play" />
+
+                    <TextView
+                        android:id="@+id/edit_pannel_textView_play"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="运行"
+                        android:textColor="#ff168fb9"
+                        android:textSize="25sp"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/edit_pannel_linearLayout_pause"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:layout_weight="130"
+                    android:background="@drawable/edit_pannel_shape_bg_mode_nor"
+                    android:gravity="center"
+                    android:orientation="horizontal" >
+
+                    <ImageButton
+                        android:id="@+id/edit_pannel_img_btn_pause"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:clickable="false"
+                        android:src="@drawable/edit_pannel_img_btn_pause" />
+
+                    <TextView
+                        android:id="@+id/edit_pannel_textView_pause"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="暂停"
+                        android:textColor="#ff168fb9"
+                        android:textSize="25sp"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/edit_pannel_linearLayout_edit"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="400"
+                    android:background="@drawable/edit_pannel_shape_bg_mode_selected"
+                    android:gravity="center"
+                    android:orientation="horizontal" >
+
+                    <ImageButton
+                        android:id="@+id/edit_pannel_img_btn_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:clickable="false"
+                        android:src="@drawable/edit_pannel_img_btn_edit" />
+
+                    <TextView
+                        android:id="@+id/edit_pannel_textView_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="编辑"
+                        android:textColor="#ff168fb9"
+                        android:textSize="25sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--
+                 <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="514" />
+            -->
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="514"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:weightSum="10" >
+
+                <ImageView
+                    android:id="@+id/edit_pannel_img_pose"
+                    style="@style/imageView_nav_left_right"
+                    android:layout_gravity="right"
+                    android:src="@drawable/common_img_pose_nor"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="180"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:weightSum="10" >
+
+                <ImageView
+                    android:id="@+id/edit_pannel_img_right"
+                    style="@style/imageView_nav_left_right"
+                    android:src="@drawable/edit_pannel_img_right" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 左侧一级菜单栏和二级菜单 -->
+
+        <LinearLayout
+            android:id="@+id/edit_pannel_linLayout_taps_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1376"
+            android:background="@android:color/transparent"
+            android:orientation="horizontal"
+            android:weightSum="2048" >
+
+            <!-- 左侧一级菜单栏 -->
+
+            <ScrollView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="190"
+                android:background="#ff2b2e34" >
+
+                <RelativeLayout
+                    android:id="@+id/reLayout_widget_icons"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+                </RelativeLayout>
+            </ScrollView>
+
+            <!-- 二级菜单栏：widget icon展示 -->
+
+            <ScrollView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="458"
+                android:background="@android:color/white" >
+
+                <LinearLayout
+                    android:id="@+id/edit_pannel_linLayout_widget_icons"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingBottom="5dp" >
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- pause状态下显示 -->
+
+    <LinearLayout
+        android:id="@+id/edit_pannel_linLayout_pause_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        android:weightSum="1536" >
+
+        <!-- 灰色半透明 -->
+
+        <RelativeLayout
+            android:id="@+id/edit_pannel_reLayout_pause"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1376"
+            android:background="#88323232"
+            android:clickable="true" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/coffee" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <!-- 放左下角按钮的layout -->
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout_top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="false" >
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,57 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_RelativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFaaaaaa"
+    android:clipChildren="false" >
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignBaseline="@+id/button2"
+        android:layout_alignBottom="@+id/button2"
+        android:layout_marginLeft="18dp"
+        android:layout_toRightOf="@+id/button2"
+        android:background="#FF000000"
+        android:onClick="onClick"
+        android:text="onClick"
+        android:textColor="#FFFFFFFF" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="148dp"
+        android:layout_marginTop="54dp"
+        android:background="#FF000000"
+        android:onClick="onClick2"
+        android:text="onClick2"
+        android:textColor="#FFFFFFFF" />
+    
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:background="#FF000000"
+        android:onClick="onClick3"
+        android:text="nor"
+        android:textColor="#FFFFFFFF" />
+    
+     <Button
+        android:id="@+id/button4"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:background="#FF000000"
+        android:onClick="onClick4"
+        android:text="balance"
+        android:textColor="#FFFFFFFF" />
+
+</RelativeLayout>
