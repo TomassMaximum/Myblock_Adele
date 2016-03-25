@@ -7,6 +7,8 @@ import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -30,6 +32,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     //连接icon的ImageView
     ImageView iconLink;
 
+    RecyclerView projectsRecyclerView;
+
     Handler handler;
 
     @Override
@@ -48,13 +52,23 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         //找到本Activity的根View，用于获取屏幕截图
         rootView = findViewById(android.R.id.content);
+
+        projectsRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_projects);
+
+        projectsRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
+        projectsRecyclerView.setAdapter(new ProjectListAdapter(this));
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
+        Log.e(TAG, "onWindowFocusChanged be called");
 
-        //如果这是第一次进入当前Activity且未连接设备，则开启一个线程进行截图操作，避免该动作阻塞主线程造成UI卡顿
+        if (hasFocus){
+            iconLink.setClickable(true);
+        }
+
+        //如果这是;第一次进入当前Activity且未连接设备，则开启一个线程进行截图操作，避免该动作阻塞主线程造成UI卡顿
         if (Variable.isFirstEnterMainActivity && !Variable.isConnected){
             new GetCompressedScreenShot(this).start();
         }
@@ -62,7 +76,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        new GetCompressedScreenShot(this).start();
+        if (iconLink.isClickable()){
+            new GetCompressedScreenShot(this).start();
+        }
+        iconLink.setClickable(false);
     }
 
     //用于截图、压缩截图、唤醒Handler的子线程内部类
@@ -82,6 +99,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
             //唤醒Handler来打开连接对话框进行更新UI的操作
             mainActivity.handler.sendEmptyMessage(0);
+
+            iconLink.setClickable(true);
         }
     }
 
@@ -119,7 +138,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         BitmapFactory.Options options = new BitmapFactory.Options();
 
         //压缩比设为16倍
-        options.inSampleSize = 16;
+        options.inSampleSize = 32;
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 
         //压缩图片

@@ -102,7 +102,7 @@ public class ConnectDialog extends Dialog implements View.OnClickListener {
         ScriptIntrinsicBlur blur = ScriptIntrinsicBlur.create(renderScript,overlayAllocation.getElement());
         blur.setInput(overlayAllocation);
         blur.forEach(overlayAllocation);
-        blur.setRadius(20);
+        blur.setRadius(4);
         overlayAllocation.copyTo(overlay);
 
         //把不知怎么来的毛玻璃效果屏幕截图设为对话框背景图片
