@@ -34,19 +34,15 @@ public class ConnectDialog extends Dialog implements View.OnClickListener {
     //压缩后的Scanner位图
     Bitmap compressedScanner;
 
-    //压缩后的屏幕截图
-    Bitmap compressedScreenShot;
-
     //蓝牙连接标识logo
     ImageView iconLink;
 
     Typer typer;
 
     //构造方法，接收MainActivity传过来的压缩过的屏幕截图和上下文
-    public ConnectDialog(Context context,Bitmap compressedScreenShot) {
+    public ConnectDialog(Context context) {
         super(context, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
         this.mainActivity = context;
-        this.compressedScreenShot = compressedScreenShot;
     }
 
     @Override
@@ -63,7 +59,7 @@ public class ConnectDialog extends Dialog implements View.OnClickListener {
         iconLink.setOnClickListener(this);
 
         //将对话框背景图片设为毛玻璃效果的屏幕截图
-        setBlurBackground(this, compressedScreenShot);
+        //setBlurBackground(this, compressedScreenShot);
 
         //获取到压缩过的Scanner
         getScannerAndCompress();
@@ -91,25 +87,6 @@ public class ConnectDialog extends Dialog implements View.OnClickListener {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inSampleSize = 2;
         compressedScanner = BitmapFactory.decodeResource(mainActivity.getResources(),R.drawable.login_scanner,options);
-    }
-
-    //将屏幕截图加上毛玻璃效果并设为对话框背景图片
-    public void setBlurBackground(Dialog dialog,Bitmap overlay){
-
-        //一堆看不懂的算法
-        RenderScript renderScript = RenderScript.create(mainActivity);
-        Allocation overlayAllocation = Allocation.createFromBitmap(renderScript, overlay);
-        ScriptIntrinsicBlur blur = ScriptIntrinsicBlur.create(renderScript,overlayAllocation.getElement());
-        blur.setInput(overlayAllocation);
-        blur.forEach(overlayAllocation);
-        blur.setRadius(4);
-        overlayAllocation.copyTo(overlay);
-
-        //把不知怎么来的毛玻璃效果屏幕截图设为对话框背景图片
-        dialog.getWindow().setBackgroundDrawable(new BitmapDrawable(mainActivity.getResources(), overlay));
-
-        //把这玩意儿关了
-        renderScript.destroy();
     }
 
     @Override
