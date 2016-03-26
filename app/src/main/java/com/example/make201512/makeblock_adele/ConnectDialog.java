@@ -4,15 +4,13 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.renderscript.Allocation;
-import android.renderscript.RenderScript;
-import android.renderscript.ScriptIntrinsicBlur;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
+
+import java.io.InputStream;
 
 /**
  * Created by make201512 on 2016/3/22.
@@ -39,10 +37,13 @@ public class ConnectDialog extends Dialog implements View.OnClickListener {
 
     Typer typer;
 
+    Bitmap blurBackground;
+
     //构造方法，接收MainActivity传过来的压缩过的屏幕截图和上下文
     public ConnectDialog(Context context) {
         super(context, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
         this.mainActivity = context;
+//        this.blurBackground = blurBackground;
     }
 
     @Override
@@ -81,17 +82,28 @@ public class ConnectDialog extends Dialog implements View.OnClickListener {
     public void getScannerAndCompress(){
 
         //从资源文件获取到Scanner的位图
-        scanner = BitmapFactory.decodeResource(mainActivity.getResources(),R.drawable.login_scanner);
+//        scanner = BitmapFactory.decodeResource(mainActivity.getResources(),R.drawable.login_scanner);
 
         //将位图压缩至原大小的一般。使用原大小位图会造成内存溢出，crash
+//        BitmapFactory.Options options = new BitmapFactory.Options();
+//        options.inSampleSize = 2;
+//        compressedScanner = BitmapFactory.decodeResource(mainActivity.getResources(),R.drawable.login_scanner,options);
+
+
+        InputStream in = mainActivity.getResources().openRawResource(+ R.drawable.login_scanner);
         BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = false;
         options.inSampleSize = 2;
-        compressedScanner = BitmapFactory.decodeResource(mainActivity.getResources(),R.drawable.login_scanner,options);
+        compressedScanner = BitmapFactory.decodeStream(in,null,options);
+
     }
 
     @Override
     public void onClick(View v) {
         //点击蓝牙连接icon时关闭当前对话框
         this.dismiss();
+        if (Variable.isScreenChanged){
+            blurBackground.recycle();
+        }
     }
 }

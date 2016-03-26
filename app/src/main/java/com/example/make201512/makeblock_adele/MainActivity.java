@@ -53,6 +53,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         projectsRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
         projectsRecyclerView.setAdapter(new ProjectListAdapter(this));
+
+        projectsRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                Variable.isScreenChanged = true;
+            }
+        });
     }
 
     @Override
@@ -90,7 +98,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
         @Override
         public void run() {
             //调用getScreenShotAndCompress方法获取屏幕截图并进行压缩以节省内存
-            getScreenShotAndCompress(rootView);
+            if (Variable.isScreenChanged){
+                getScreenShotAndCompress(rootView);
+                Variable.isScreenChanged = false;
+                Log.e(TAG,"截图操作");
+            }
 
             //唤醒Handler来打开连接对话框进行更新UI的操作
             mainActivity.handler.sendEmptyMessage(0);

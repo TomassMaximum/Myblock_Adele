@@ -28,7 +28,7 @@ public class ProjectListAdapter extends RecyclerView.Adapter {
 
     public ProjectListAdapter(MainActivity mainActivity){
         this.mainActivity = mainActivity;
-        initBitmap();
+//        initBitmap();
     }
 
     @Override
@@ -40,11 +40,11 @@ public class ProjectListAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         RecyclerHolder viewHolder = (RecyclerHolder) holder;
 
-//        BitmapFactory.Options options = new BitmapFactory.Options();
-//        options.inSampleSize = 3;
-//        Bitmap currentImage = BitmapFactory.decodeResource(mainActivity.getResources(),projectImages[position],options);
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = 3;
+        Bitmap currentImage = BitmapFactory.decodeResource(mainActivity.getResources(),projectImages[position],options);
 
-        viewHolder.projectPictureImageView.setImageBitmap(bitmapList.get(position));
+        viewHolder.projectPictureImageView.setImageBitmap(currentImage);
         viewHolder.projectName.setText(projectNames[position]);
 
     }
