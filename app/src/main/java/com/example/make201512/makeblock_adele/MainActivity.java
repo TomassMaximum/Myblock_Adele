@@ -1,6 +1,7 @@
 package com.example.make201512.makeblock_adele;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
@@ -10,8 +11,13 @@ import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+
+import at.markushi.ui.ActionView;
+import at.markushi.ui.action.BackAction;
+import at.markushi.ui.action.DrawerAction;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
@@ -32,6 +38,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     Bitmap blurScreenShot;
 
+    ActionView actionView;
+
+    boolean menuIsShowing = false;
+
+    MenuFragment menuFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +61,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         //找到本Activity的根View，用于获取屏幕截图
         rootView = findViewById(android.R.id.content);
 
+        actionView = (ActionView) findViewById(R.id.action_view);
+
+        actionView.setOnClickListener(this);
+
         projectsRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_projects);
 
         projectsRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
@@ -61,6 +77,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 Variable.isScreenChanged = true;
             }
         });
+
+        menuFragment = new MenuFragment();
     }
 
     @Override
@@ -79,10 +97,40 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (iconLink.isClickable()){
-            new GetCompressedScreenShot(this).start();
+
+        int id = v.getId();
+        switch (id){
+            case R.id.icon_link:{
+                if (iconLink.isClickable()){
+                    new GetCompressedScreenShot(this).start();
+                }
+                iconLink.setClickable(false);
+                break;
+            }
+            case R.id.action_view:{
+                if (!menuIsShowing){
+                    actionView.setAction(new BackAction(),ActionView.ROTATE_CLOCKWISE);
+
+                    //在这里打开菜单碎片
+                    FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                    fragmentTransaction.setCustomAnimations(R.anim.menu_fragment_in,R.anim.menu_fragment_out);
+                    fragmentTransaction.add(android.R.id.content,menuFragment).commit();
+
+                    menuIsShowing = true;
+                }else {
+                    actionView.setAction(new DrawerAction(), ActionView.ROTATE_CLOCKWISE);
+
+                    //在这里关闭菜单碎片
+                    FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                    fragmentTransaction.setCustomAnimations(R.anim.menu_fragment_in,R.anim.menu_fragment_out);
+                    fragmentTransaction.remove(menuFragment).commit();
+
+                    menuIsShowing = false;
+                }
+
+            }
         }
-        iconLink.setClickable(false);
+
     }
 
     //用于截图、压缩截图、唤醒Handler的子线程内部类
@@ -161,7 +209,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         int h = bitmap.getHeight();
 
         int[] pix = new int[w * h];
-        Log.e("pix", w + " " + h + " " + pix.length);
+        //Log.e("pix", w + " " + h + " " + pix.length);
         bitmap.getPixels(pix, 0, w, 0, 0, w, h);
 
         int wm = w - 1;

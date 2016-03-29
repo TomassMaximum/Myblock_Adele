@@ -93,7 +93,7 @@ public class ConnectDialog extends Dialog implements View.OnClickListener {
         InputStream in = mainActivity.getResources().openRawResource(+ R.drawable.login_scanner);
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = false;
-        options.inSampleSize = 2;
+        options.inSampleSize = 1;
         compressedScanner = BitmapFactory.decodeStream(in,null,options);
 
     }
