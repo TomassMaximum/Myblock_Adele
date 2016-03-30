@@ -22,7 +22,7 @@
             <ImageView
                 android:layout_marginTop="8dp"
                 android:layout_centerHorizontal="true"
-                android:id="@+id/pic_project"
+                android:id="@+id/project_image"
                 android:maxHeight="200dp"
                 android:adjustViewBounds="true"
                 android:layout_width="wrap_content"
@@ -33,7 +33,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:textColor="@android:color/black"
-                android:id="@+id/text_project_name"
+                android:id="@+id/project_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 

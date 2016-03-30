@@ -11,6 +11,17 @@ public class Variable {
     //是否为第一次进入本Activity的标记。如果第一次进入当前Activity且未连接设备，则自动弹出蓝牙连接对话框。
     public static boolean isFirstEnterMainActivity;
 
-    public static boolean isScreenChanged;
+    public static boolean isScreenChanged = true;
 
+    public static int projectsNum = 16;
+
+    public static boolean fragmentIsAdded = false;
+
+    public static int getProjectsNum() {
+        return projectsNum;
+    }
+
+    public static void setProjectsNum(int projectsNum) {
+        Variable.projectsNum = projectsNum;
+    }
 }

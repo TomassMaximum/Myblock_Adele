@@ -8,10 +8,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -31,8 +28,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     //连接icon的ImageView
     ImageView iconLink;
-
-    RecyclerView projectsRecyclerView;
 
     Handler handler;
 
@@ -65,18 +60,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         actionView.setOnClickListener(this);
 
-        projectsRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_projects);
+        MainFragment mainFragment = new MainFragment();
 
-        projectsRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
-        projectsRecyclerView.setAdapter(new ProjectListAdapter(this));
-
-        projectsRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                Variable.isScreenChanged = true;
-            }
-        });
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.fragment_container,mainFragment);
+        fragmentTransaction.commit();
 
         menuFragment = new MenuFragment();
     }
@@ -92,6 +80,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         //如果这是;第一次进入当前Activity且未连接设备，则开启一个线程进行截图操作，避免该动作阻塞主线程造成UI卡顿
         if (Variable.isFirstEnterMainActivity && !Variable.isConnected){
             new GetCompressedScreenShot(this).start();
+//            Variable.isScreenChanged = false;
         }
     }
 
@@ -101,9 +90,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
         int id = v.getId();
         switch (id){
             case R.id.icon_link:{
-                if (iconLink.isClickable()){
+//                if (iconLink.isClickable()){
                     new GetCompressedScreenShot(this).start();
-                }
+//                }
                 iconLink.setClickable(false);
                 break;
             }
@@ -113,8 +102,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
                     //在这里打开菜单碎片
                     FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                    fragmentTransaction.setCustomAnimations(R.anim.menu_fragment_in,R.anim.menu_fragment_out);
-                    fragmentTransaction.add(android.R.id.content,menuFragment).commit();
+                    fragmentTransaction.setCustomAnimations(R.anim.menu_fragment_in, R.anim.menu_fragment_out);
+
+                    if (Variable.fragmentIsAdded){
+                        fragmentTransaction.show(menuFragment).commit();
+                    }else {
+                        fragmentTransaction.add(R.id.menu_fragment_container,menuFragment).commit();
+                        Variable.fragmentIsAdded = true;
+                    }
 
                     menuIsShowing = true;
                 }else {
@@ -123,7 +118,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     //在这里关闭菜单碎片
                     FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                     fragmentTransaction.setCustomAnimations(R.anim.menu_fragment_in,R.anim.menu_fragment_out);
-                    fragmentTransaction.remove(menuFragment).commit();
+                    fragmentTransaction.hide(menuFragment).commit();
+//                    fragmentTransaction.remove(menuFragment).commit();
 
                     menuIsShowing = false;
                 }
@@ -145,7 +141,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         @Override
         public void run() {
-            //调用getScreenShotAndCompress方法获取屏幕截图并进行压缩以节省内存
+            //如果列表发生滑动屏幕改变，则重新截图并压缩加毛玻璃。如果未改变，则省去此步骤复用之前的图片以节约内存。
             if (Variable.isScreenChanged){
                 getScreenShotAndCompress(rootView);
                 Variable.isScreenChanged = false;
@@ -181,18 +177,19 @@ public class MainActivity extends Activity implements View.OnClickListener {
     }
 
     //用于获取当前屏幕截图的方法
-    public void getScreenShotAndCompress(View view){
+    public void getScreenShotAndCompress(final View view){
 
-
+        //创建一个空的Bitmap并画到canvas上。
         blurScreenShot = Bitmap.createBitmap(view.getWidth(),view.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas mCanvas = new Canvas(blurScreenShot);
+        final Canvas mCanvas = new Canvas(blurScreenShot);
         view.draw(mCanvas);
 
-
-        blurScreenShot = fastblur(blurScreenShot,1/12f,5);
+        //压缩截图并加毛玻璃效果。第二个参数是压缩的倍数，第三个参数是毛玻璃效果的半径。
+        blurScreenShot = fastblur(blurScreenShot,1/20f,5);
 
     }
 
+    //一个很牛逼的加毛玻璃的方法，效果优于Android自带的RenderScript，且执行速度也更快。
     public Bitmap fastblur(Bitmap sentBitmap, float scale, int radius) {
 
         int width = Math.round(sentBitmap.getWidth() * scale);

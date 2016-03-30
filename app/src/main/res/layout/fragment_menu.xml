@@ -3,7 +3,6 @@
     android:orientation="vertical"
     android:layout_width="80dp"
     android:layout_height="match_parent"
-    android:layout_marginTop="52dp"
     android:gravity="center"
     android:id="@+id/fragment"
     android:background="@color/colorPrimary">
