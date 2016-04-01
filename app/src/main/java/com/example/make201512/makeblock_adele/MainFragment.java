@@ -15,10 +15,8 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.kogitune.activity_transition.ActivityTransitionLauncher;
 
 import java.io.InputStream;
 
@@ -30,10 +28,10 @@ public class MainFragment extends Fragment {
     private GridView projectsGridView;
 
     private int[] projectsImagesId = new int[]{
-            R.drawable.capture_a,R.drawable.capture_b,R.drawable.scanner,R.drawable.camera_dolly,
-            R.drawable.catapult_ram,R.drawable.color_bar,R.drawable.detecting_robot,R.drawable.mars_explorer,
-            R.drawable.mbot,R.drawable.racing_car,R.drawable.robotic_ant,R.drawable.robotic_arm_tank,
-            R.drawable.robotic_bartender,R.drawable.rolling_tank,R.drawable.self_balancing_robot,R.drawable.starter};
+            R.drawable.robotic_arm_tank,R.drawable.racing_car,R.drawable.color_bar,R.drawable.mars_explorer,
+            R.drawable.camera_dolly,R.drawable.robotic_bartender,R.drawable.self_balancing_robot,R.drawable.detecting_robot,
+            R.drawable.capture_a,R.drawable.capture_b,R.drawable.rolling_tank,R.drawable.robotic_ant,
+            R.drawable.catapult_ram,R.drawable.mbot,R.drawable.starter,R.drawable.scanner};
 
     private Bitmap[] projectsImages = new Bitmap[Variable.getProjectsNum()];
 
@@ -85,13 +83,7 @@ public class MainFragment extends Fragment {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//            startActivity(new Intent(getActivity(),ProjectActivity.class));
-
-            final Intent intent = new Intent(getActivity(),ProjectActivity.class);
-
-            intent.putExtra("projectIndex",position);
-
-            ActivityTransitionLauncher.with(getActivity()).from(view).launch(intent);
+            startActivity(new Intent(getActivity(),ProjectActivity.class));
 
         }
     }
@@ -102,10 +94,10 @@ public class MainFragment extends Fragment {
         Bitmap[] projectsImages;
 
         private String[] projectsNames = new String[]{
-                "3D-Capture-A","3D-Capture-B","3D-Scanner","Camera-Dolly",
-                "Catapult-Ram","Color-Bar","Detecting-Robot","Mars-Explorer",
-                "mBot","Racing-Car","Robotic-Ant","Robotic-Arm-Tank",
-                "Robotic-Bartender","Rolling-Tank","Self-Balancing-Robot","Starter"
+                "Robotic-Arm-Tank","Racing-Car","Color-Bar","Mars-Explorer",
+                "Camera-Dolly","Robotic-Bartender","Self-Balancing-Robot","Detecting-Robot",
+                "3D-Capture-A","3D-Capture-B","Rolling-Tank","Robotic-Ant",
+                "Catapult-Ram","mBot","Starter","3D-Scanner"
         };
 
         public GridViewAdapter(Context context,Bitmap[] projectsImages){
