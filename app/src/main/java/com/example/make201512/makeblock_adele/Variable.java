@@ -24,4 +24,6 @@ public class Variable {
     public static void setProjectsNum(int projectsNum) {
         Variable.projectsNum = projectsNum;
     }
+
+    public static boolean isWidgetFragmentAdded = false;
 }

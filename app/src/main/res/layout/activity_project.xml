@@ -12,20 +12,19 @@
         android:layout_height="52dp"
         android:background="@color/colorPrimary"
         android:elevation="4dp"
-        android:id="@+id/main_activity_toolbar">
+        android:id="@+id/project_activity_toolbar">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageView
-                android:layout_marginStart="13dp"
-                android:layout_marginTop="13dp"
-                android:maxHeight="26dp"
+                android:layout_marginStart="11dp"
+                android:layout_centerVertical="true"
+                android:maxHeight="30dp"
                 android:adjustViewBounds="true"
-                android:layout_alignParentStart="true"
-                android:src="@drawable/nav_home"
-                android:id="@+id/nav_home"
+                android:src="@drawable/ic_arrow_back_white_48dp"
+                android:id="@+id/project_activity_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -37,29 +36,57 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <ImageView
-                android:id="@+id/icon_link"
-                android:layout_marginEnd="13dp"
-                android:layout_marginTop="13dp"
-                android:maxHeight="26dp"
-                android:adjustViewBounds="true"
-                android:layout_alignParentEnd="true"
-                android:src="@drawable/nav_unlink"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
         </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>
 
+    <FrameLayout
+        android:layout_below="@+id/project_activity_toolbar"
+        android:id="@+id/widget_menu_container"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"/>
+
     <com.getbase.floatingactionbutton.FloatingActionsMenu
-        android:id="@+id/add_fab"
-        fab:fab_addButtonSize="mini"
+        android:id="@+id/actions_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         fab:fab_addButtonColorNormal="@color/colorAccent"
         fab:fab_addButtonColorPressed="@color/colorAccent"
-        android:layout_alignParentStart="true"
+        fab:fab_addButtonPlusIconColor="@color/white"
+        fab:fab_labelStyle="@style/menu_labels_style"
+        fab:fab_addButtonSize="mini">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:src="@drawable/ic_pause_white_24dp"
+            android:id="@+id/action_pause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/colorAccent"
+            fab:fab_title="Pause"
+            fab:fab_colorPressed="@color/colorAccent" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:src="@drawable/ic_extension_white_24dp"
+            android:id="@+id/action_design"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_colorNormal="@color/colorAccent"
+            fab:fab_title="Design"
+            fab:fab_colorPressed="@color/colorAccent"/>
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+    <com.getbase.floatingactionbutton.AddFloatingActionButton
+        android:id="@+id/menu_fragment_button"
+        fab:fab_plusIconColor="@color/white"
+        fab:fab_colorNormal="@color/colorAccent"
+        fab:fab_colorPressed="@color/colorAccent"
+        fab:fab_size="mini"
         android:layout_alignParentBottom="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
 
 </RelativeLayout>

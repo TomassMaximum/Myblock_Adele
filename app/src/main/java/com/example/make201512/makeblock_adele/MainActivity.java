@@ -35,8 +35,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     ActionView actionView;
 
-    boolean menuIsShowing = false;
-
     MenuFragment menuFragment;
 
     @Override
@@ -80,7 +78,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         //如果这是;第一次进入当前Activity且未连接设备，则开启一个线程进行截图操作，避免该动作阻塞主线程造成UI卡顿
         if (Variable.isFirstEnterMainActivity && !Variable.isConnected){
             new GetCompressedScreenShot(this).start();
-//            Variable.isScreenChanged = false;
         }
     }
 
@@ -90,43 +87,44 @@ public class MainActivity extends Activity implements View.OnClickListener {
         int id = v.getId();
         switch (id){
             case R.id.icon_link:{
-//                if (iconLink.isClickable()){
-                    new GetCompressedScreenShot(this).start();
-//                }
+
+                new GetCompressedScreenShot(this).start();
+
                 iconLink.setClickable(false);
                 break;
             }
             case R.id.action_view:{
-                if (!menuIsShowing){
-                    actionView.setAction(new BackAction(),ActionView.ROTATE_CLOCKWISE);
-
-                    //在这里打开菜单碎片
-                    FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                    fragmentTransaction.setCustomAnimations(R.anim.menu_fragment_in, R.anim.menu_fragment_out);
-
-                    if (Variable.fragmentIsAdded){
-                        fragmentTransaction.show(menuFragment).commit();
-                    }else {
-                        fragmentTransaction.add(R.id.menu_fragment_container,menuFragment).commit();
-                        Variable.fragmentIsAdded = true;
-                    }
-
-                    menuIsShowing = true;
+                if (menuFragment.isVisible()){
+                    hideMenu();
                 }else {
-                    actionView.setAction(new DrawerAction(), ActionView.ROTATE_CLOCKWISE);
-
-                    //在这里关闭菜单碎片
-                    FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                    fragmentTransaction.setCustomAnimations(R.anim.menu_fragment_in,R.anim.menu_fragment_out);
-                    fragmentTransaction.hide(menuFragment).commit();
-//                    fragmentTransaction.remove(menuFragment).commit();
-
-                    menuIsShowing = false;
+                    showMenu();
                 }
 
             }
         }
 
+    }
+
+    public void showMenu(){
+        actionView.setAction(new BackAction(),ActionView.ROTATE_CLOCKWISE);
+
+        //在这里打开菜单碎片
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.menu_fragment_in, R.anim.menu_fragment_out);
+
+        if (menuFragment.isAdded()){
+            fragmentTransaction.show(menuFragment).commit();
+        }else {
+            fragmentTransaction.add(R.id.menu_fragment_container,menuFragment).commit();
+        }
+    }
+
+    public void hideMenu(){
+        actionView.setAction(new DrawerAction(), ActionView.ROTATE_CLOCKWISE);
+        //在这里关闭菜单碎片
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.setCustomAnimations(R.anim.menu_fragment_in,R.anim.menu_fragment_out);
+        fragmentTransaction.hide(menuFragment).commit();
     }
 
     //用于截图、压缩截图、唤醒Handler的子线程内部类
