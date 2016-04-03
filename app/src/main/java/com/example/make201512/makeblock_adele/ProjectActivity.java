@@ -5,18 +5,22 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.getbase.floatingactionbutton.AddFloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 public class ProjectActivity extends Activity implements View.OnClickListener {
+
+    private static final String TAG = "ProjectActivity";
 
     int projectIndex;
 
@@ -34,6 +38,8 @@ public class ProjectActivity extends Activity implements View.OnClickListener {
     WidgetMenuFragment widgetMenuFragment;
 
     FrameLayout fabContainer;
+
+    String enterMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +66,20 @@ public class ProjectActivity extends Activity implements View.OnClickListener {
 
         widgetMenuFragment = new WidgetMenuFragment();
 
+        enterMode = getIntent().getStringExtra("enter_mode");
+        if (enterMode != null){
+            giveProperLayout(enterMode);
+        }
+
+    }
+
+    public void giveProperLayout(String enterMode){
+        switch (enterMode){
+            case "add_project":{
+                expandWidgetFragment();
+                break;
+            }
+        }
     }
 
     @Override
@@ -126,6 +146,11 @@ public class ProjectActivity extends Activity implements View.OnClickListener {
         actionsMenu.collapse();
 
         fabOutAnimation = AnimationUtils.loadAnimation(this, R.anim.menu_fab_out);
+
+        if (enterMode.equals("add_project")){
+            fabOutAnimation.setStartOffset(300);
+        }
+
         actionsMenu.startAnimation(fabOutAnimation);
         actionsMenu.setVisibility(View.INVISIBLE);
 
@@ -138,16 +163,23 @@ public class ProjectActivity extends Activity implements View.OnClickListener {
         animatorSet.playTogether(translateAnimation,rotateAnimation);
         animatorSet.setInterpolator(new AccelerateDecelerateInterpolator());
         animatorSet.setDuration(700);
+
         animatorSet.start();
 
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.anim.widget_fragment_in, R.anim.widget_fragment_out);
+
+        if (!enterMode.equals("add_project")){
+            fragmentTransaction.setCustomAnimations(R.anim.widget_fragment_in, R.anim.widget_fragment_out);
+        }
+        Log.e(TAG,enterMode);
 
         if (widgetMenuFragment.isAdded()){
             fragmentTransaction.show(widgetMenuFragment).commit();
         }else {
             fragmentTransaction.add(R.id.widget_menu_container,widgetMenuFragment).commit();
         }
+
+        enterMode = "";
     }
 
     public void collapseWidgetFragment(){

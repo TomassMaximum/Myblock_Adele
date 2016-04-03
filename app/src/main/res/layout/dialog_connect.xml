@@ -10,6 +10,7 @@
 
     <ImageView
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:maxHeight="360dp"
         android:adjustViewBounds="true"
         android:id="@+id/login_radar"
@@ -20,6 +21,7 @@
 
     <ImageView
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:maxHeight="360dp"
         android:adjustViewBounds="true"
         android:layout_centerInParent="true"
@@ -30,6 +32,7 @@
     <ImageView
         android:id="@+id/radar_icon_link"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:adjustViewBounds="true"
         android:maxHeight="26dp"
         android:src="@drawable/nav_unlink"
@@ -42,6 +45,7 @@
         android:textColor="#424242"
         android:id="@+id/typer"
         android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

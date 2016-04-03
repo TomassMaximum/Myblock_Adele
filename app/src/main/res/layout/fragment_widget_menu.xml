@@ -5,28 +5,32 @@
     android:layout_height="match_parent"
     android:background="@color/colorAccent">
 
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
         android:layout_width="60dp"
         android:layout_height="match_parent"
         android:background="#424242">
 
-        <ImageView
-            android:adjustViewBounds="true"
-            android:maxHeight="64dp"
-            android:src="@drawable/indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <!--<ImageView-->
+            <!--android:adjustViewBounds="true"-->
+            <!--android:maxHeight="64dp"-->
+            <!--android:src="@drawable/indicator"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
 
         <LinearLayout
-            android:layout_centerHorizontal="true"
+            android:background="@drawable/selected_background"
             android:id="@+id/move_linear"
-            android:layout_marginTop="8dp"
+            android:layout_weight="1"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/move_icon"
+                android:layout_marginTop="4dp"
                 android:adjustViewBounds="true"
                 android:maxHeight="32dp"
                 android:src="@drawable/move_selector"
@@ -34,23 +38,27 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/move_text"
                 android:text="Move"
+                android:textColor="@color/text_color"
+                android:layout_marginBottom="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/move_linear"
+            android:background="@drawable/selected_background"
+            android:layout_weight="1"
             android:id="@+id/display_linear"
-            android:layout_marginTop="8dp"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/display_icon"
+                android:layout_marginTop="4dp"
                 android:adjustViewBounds="true"
                 android:maxHeight="32dp"
                 android:src="@drawable/display_selector"
@@ -58,23 +66,27 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/display_text"
                 android:text="Display"
+                android:textColor="@color/text_color"
+                android:layout_marginBottom="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/display_linear"
+            android:background="@drawable/selected_background"
+            android:layout_weight="1"
             android:id="@+id/sense_linear"
-            android:layout_marginTop="8dp"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/sense_icon"
+                android:layout_marginTop="4dp"
                 android:adjustViewBounds="true"
                 android:maxHeight="32dp"
                 android:src="@drawable/sense_selector"
@@ -82,23 +94,27 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/sense_text"
                 android:text="Sense"
+                android:textColor="@color/text_color"
+                android:layout_marginBottom="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/sense_linear"
+            android:background="@drawable/selected_background"
+            android:layout_weight="1"
             android:id="@+id/control_linear"
-            android:layout_marginTop="8dp"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/control_icon"
+                android:layout_marginTop="4dp"
                 android:adjustViewBounds="true"
                 android:maxHeight="32dp"
                 android:src="@drawable/control_selector"
@@ -106,23 +122,27 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/control_text"
                 android:text="Control"
+                android:textColor="@color/text_color"
+                android:layout_marginBottom="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/control_linear"
+            android:background="@drawable/selected_background"
+            android:layout_weight="1"
             android:id="@+id/custom_linear"
-            android:layout_marginTop="8dp"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/custom_icon"
+                android:layout_marginTop="4dp"
                 android:adjustViewBounds="true"
                 android:maxHeight="32dp"
                 android:src="@drawable/custom_selector"
@@ -130,13 +150,16 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                android:id="@+id/custom_text"
                 android:text="Custom"
+                android:textColor="@color/text_color"
+                android:layout_marginBottom="4dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/widget_container"

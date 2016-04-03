@@ -83,7 +83,9 @@ public class MainFragment extends Fragment {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            startActivity(new Intent(getActivity(),ProjectActivity.class));
+            Intent intent = new Intent(getActivity(),ProjectActivity.class);
+            intent.putExtra("enter_mode",position + "");
+            startActivity(intent);
 
         }
     }

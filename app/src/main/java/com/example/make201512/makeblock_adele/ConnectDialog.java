@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
@@ -16,6 +17,8 @@ import java.io.InputStream;
  * Created by make201512 on 2016/3/22.
  */
 public class ConnectDialog extends Dialog implements View.OnClickListener {
+
+    private static final String TAG = "ConnectDialog";
 
     //雷达Scanner
     ImageView loginScanner;
@@ -92,6 +95,7 @@ public class ConnectDialog extends Dialog implements View.OnClickListener {
         this.dismiss();
         if (Variable.isScreenChanged && blurBackground != null){
             blurBackground.recycle();
+            Log.e(TAG,"Bitmap已回收");
         }
     }
 }

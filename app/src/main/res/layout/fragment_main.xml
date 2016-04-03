@@ -12,4 +12,4 @@
     android:verticalSpacing="16dp"
     android:clipToPadding="false"
     android:padding="16dp"
-    android:scrollbarStyle="outsideOverlay"/>
+    android:scrollbarStyle="outsideOverlay" />

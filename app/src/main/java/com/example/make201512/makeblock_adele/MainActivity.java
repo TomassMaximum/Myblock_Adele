@@ -2,6 +2,7 @@ package com.example.make201512.makeblock_adele;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
@@ -11,6 +12,10 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.getbase.floatingactionbutton.AddFloatingActionButton;
+
+import java.io.InputStream;
 
 import at.markushi.ui.ActionView;
 import at.markushi.ui.action.BackAction;
@@ -37,10 +42,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     MenuFragment menuFragment;
 
+    AddFloatingActionButton addProjectFab;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        addProjectFab = (AddFloatingActionButton) findViewById(R.id.fab_add_project);
+        addProjectFab.setOnClickListener(this);
 
         iconLink = (ImageView) findViewById(R.id.icon_link);
         iconLink.setOnClickListener(this);
@@ -53,10 +63,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
         //找到本Activity的根View，用于获取屏幕截图
         rootView = findViewById(android.R.id.content);
-
-        actionView = (ActionView) findViewById(R.id.action_view);
-
-        actionView.setOnClickListener(this);
 
         MainFragment mainFragment = new MainFragment();
 
@@ -93,13 +99,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 iconLink.setClickable(false);
                 break;
             }
-            case R.id.action_view:{
-                if (menuFragment.isVisible()){
-                    hideMenu();
-                }else {
-                    showMenu();
-                }
-
+            case R.id.fab_add_project:{
+                Intent intent = new Intent(this,ProjectActivity.class);
+                intent.putExtra("enter_mode","add_project");
+                startActivity(intent);
             }
         }
 
@@ -140,7 +143,13 @@ public class MainActivity extends Activity implements View.OnClickListener {
         @Override
         public void run() {
             //如果列表发生滑动屏幕改变，则重新截图并压缩加毛玻璃。如果未改变，则省去此步骤复用之前的图片以节约内存。
-            if (Variable.isScreenChanged){
+            if (Variable.isScreenChanged || blurScreenShot == null){
+
+                if (blurScreenShot != null){
+                    blurScreenShot.recycle();
+                    Log.e(TAG,"回收完成");
+                }
+
                 getScreenShotAndCompress(rootView);
                 Variable.isScreenChanged = false;
                 Log.e(TAG,"截图操作");
@@ -177,13 +186,18 @@ public class MainActivity extends Activity implements View.OnClickListener {
     //用于获取当前屏幕截图的方法
     public void getScreenShotAndCompress(final View view){
 
-        //创建一个空的Bitmap并画到canvas上。
-        blurScreenShot = Bitmap.createBitmap(view.getWidth(),view.getHeight(), Bitmap.Config.ARGB_8888);
-        final Canvas mCanvas = new Canvas(blurScreenShot);
-        view.draw(mCanvas);
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //创建一个空的Bitmap并画到canvas上。
+                blurScreenShot = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+                final Canvas mCanvas = new Canvas(blurScreenShot);
+                view.draw(mCanvas);
 
-        //压缩截图并加毛玻璃效果。第二个参数是压缩的倍数，第三个参数是毛玻璃效果的半径。
-        blurScreenShot = fastblur(blurScreenShot,1/20f,5);
+                //压缩截图并加毛玻璃效果。第二个参数是压缩的倍数，第三个参数是毛玻璃效果的半径。
+                blurScreenShot = fastblur(blurScreenShot,1/20f,5);
+            }
+        });
 
     }
 
