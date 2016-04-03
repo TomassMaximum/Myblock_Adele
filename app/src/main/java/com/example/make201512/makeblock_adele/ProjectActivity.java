@@ -1,13 +1,16 @@
 package com.example.make201512.makeblock_adele;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.AddFloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionButton;
@@ -28,15 +31,9 @@ public class ProjectActivity extends Activity implements View.OnClickListener {
 
     Animation fabOutAnimation;
 
-    Animation menuButtonFirstIn;
-
-    Animation menuButtonLastOut;
-
-    Animation menuButtonCollapse;
-
-    Animation menuButtonExpand;
-
     WidgetMenuFragment widgetMenuFragment;
+
+    FrameLayout fabContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +45,8 @@ public class ProjectActivity extends Activity implements View.OnClickListener {
         actionDesign = (FloatingActionButton) findViewById(R.id.action_design);
 
         menuFragmentButton = (AddFloatingActionButton) findViewById(R.id.menu_fragment_button);
+
+        fabContainer = (FrameLayout) findViewById(R.id.fab_container);
 
         menuFragmentButton.setOnClickListener(this);
 
@@ -80,6 +79,9 @@ public class ProjectActivity extends Activity implements View.OnClickListener {
                 if (menuFragmentButton.getVisibility() == View.VISIBLE){
                     hideWidgetFragment();
                 }
+                if (widgetMenuFragment.isHidden()){
+                    showWidgetFragment();
+                }
 
                 break;
             }
@@ -88,8 +90,14 @@ public class ProjectActivity extends Activity implements View.OnClickListener {
 
     public void hideWidgetFragment(){
 
-        menuButtonCollapse = AnimationUtils.loadAnimation(this,R.anim.widget_menu_fragment_button_collapse);
-        menuFragmentButton.setAnimation(menuButtonCollapse);
+        ObjectAnimator translateAnimation = ObjectAnimator.ofFloat(fabContainer,"x",0);
+        ObjectAnimator rotateAnimation = ObjectAnimator.ofFloat(fabContainer,"rotation",-540);
+
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(translateAnimation, rotateAnimation);
+        animatorSet.setInterpolator(new AccelerateDecelerateInterpolator());
+        animatorSet.setDuration(300);
+        animatorSet.start();
 
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.widget_fragment_in, R.anim.widget_fragment_out);
@@ -98,6 +106,16 @@ public class ProjectActivity extends Activity implements View.OnClickListener {
     }
 
     public void showWidgetFragment(){
+
+        ObjectAnimator translateAnimation = ObjectAnimator.ofFloat(fabContainer,"x",650);
+        ObjectAnimator rotateAnimation = ObjectAnimator.ofFloat(fabContainer,"rotation",585);
+
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(translateAnimation, rotateAnimation);
+        animatorSet.setInterpolator(new AccelerateDecelerateInterpolator());
+        animatorSet.setDuration(700);
+        animatorSet.start();
+
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.widget_fragment_in, R.anim.widget_fragment_out);
 
@@ -107,13 +125,20 @@ public class ProjectActivity extends Activity implements View.OnClickListener {
     public void expandWidgetFragment(){
         actionsMenu.collapse();
 
-        fabOutAnimation = AnimationUtils.loadAnimation(this,R.anim.menu_fab_out);
+        fabOutAnimation = AnimationUtils.loadAnimation(this, R.anim.menu_fab_out);
         actionsMenu.startAnimation(fabOutAnimation);
         actionsMenu.setVisibility(View.INVISIBLE);
 
-        menuButtonFirstIn = AnimationUtils.loadAnimation(this,R.anim.widget_menu_fragment_button_first_in);
         menuFragmentButton.setVisibility(View.VISIBLE);
-        menuFragmentButton.startAnimation(menuButtonFirstIn);
+
+        ObjectAnimator translateAnimation = ObjectAnimator.ofFloat(fabContainer,"x",-200,650);
+        ObjectAnimator rotateAnimation = ObjectAnimator.ofFloat(fabContainer,"rotation",765);
+
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(translateAnimation,rotateAnimation);
+        animatorSet.setInterpolator(new AccelerateDecelerateInterpolator());
+        animatorSet.setDuration(700);
+        animatorSet.start();
 
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.widget_fragment_in, R.anim.widget_fragment_out);
@@ -130,9 +155,14 @@ public class ProjectActivity extends Activity implements View.OnClickListener {
         actionsMenu.startAnimation(fabInAnimation);
         actionsMenu.setVisibility(View.VISIBLE);
 
-        menuButtonLastOut = AnimationUtils.loadAnimation(this,R.anim.widget_menu_fragment_button_last_out);
-        menuFragmentButton.startAnimation(menuButtonLastOut);
-        menuFragmentButton.setVisibility(View.GONE);
+        ObjectAnimator translateAnimation = ObjectAnimator.ofFloat(fabContainer,"x",-200);
+        ObjectAnimator rotateAnimation = ObjectAnimator.ofFloat(fabContainer,"rotation",-765);
+
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(translateAnimation, rotateAnimation);
+        animatorSet.setInterpolator(new AccelerateDecelerateInterpolator());
+        animatorSet.setDuration(300);
+        animatorSet.start();
 
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.widget_fragment_in, R.anim.widget_fragment_out);
@@ -141,7 +171,7 @@ public class ProjectActivity extends Activity implements View.OnClickListener {
 
     @Override
     public void onBackPressed() {
-        if (widgetMenuFragment.isVisible()){
+        if (!(actionsMenu.getVisibility() == View.VISIBLE)){
             collapseWidgetFragment();
         }else {
             finish();

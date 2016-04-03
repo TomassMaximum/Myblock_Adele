@@ -11,11 +11,4 @@
         android:toXDelta="0"
         android:duration="300"/>
 
-    <objectAnimator
-        android:propertyName="x"
-        android:valueType="floatType"
-        android:valueFrom="-250"
-        android:valueTo="0"
-        android:duration="300"/>
-
 </set>
