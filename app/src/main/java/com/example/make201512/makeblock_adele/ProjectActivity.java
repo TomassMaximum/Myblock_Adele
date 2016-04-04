@@ -2,6 +2,7 @@ package com.example.make201512.makeblock_adele;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -12,7 +13,6 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.getbase.floatingactionbutton.AddFloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionButton;

@@ -1,28 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="210dp"
     android:layout_height="match_parent"
     android:background="@color/colorAccent">
 
     <LinearLayout
+        android:id="@+id/widget_menu"
         android:orientation="vertical"
         android:gravity="center_horizontal"
         android:layout_width="60dp"
         android:layout_height="match_parent"
         android:background="#424242">
 
-        <!--<ImageView-->
-            <!--android:adjustViewBounds="true"-->
-            <!--android:maxHeight="64dp"-->
-            <!--android:src="@drawable/indicator"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content" />-->
-
         <LinearLayout
             android:background="@drawable/selected_background"
             android:id="@+id/move_linear"
-            android:layout_weight="1"
+
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -49,7 +42,7 @@
 
         <LinearLayout
             android:background="@drawable/selected_background"
-            android:layout_weight="1"
+
             android:id="@+id/display_linear"
             android:gravity="center_horizontal"
             android:orientation="vertical"
@@ -77,7 +70,7 @@
 
         <LinearLayout
             android:background="@drawable/selected_background"
-            android:layout_weight="1"
+
             android:id="@+id/sense_linear"
             android:gravity="center_horizontal"
             android:orientation="vertical"
@@ -105,7 +98,7 @@
 
         <LinearLayout
             android:background="@drawable/selected_background"
-            android:layout_weight="1"
+
             android:id="@+id/control_linear"
             android:gravity="center_horizontal"
             android:orientation="vertical"
@@ -133,7 +126,7 @@
 
         <LinearLayout
             android:background="@drawable/selected_background"
-            android:layout_weight="1"
+
             android:id="@+id/custom_linear"
             android:gravity="center_horizontal"
             android:orientation="vertical"
@@ -159,11 +152,18 @@
 
         </LinearLayout>
 
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
     </LinearLayout>
 
     <FrameLayout
-        android:id="@+id/widget_container"
+        android:layout_toEndOf="@+id/widget_menu"
+        android:layout_toRightOf="@+id/widget_menu"
+        android:id="@+id/widget_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-</LinearLayout>
+</RelativeLayout>
