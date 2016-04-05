@@ -2,7 +2,6 @@ package com.example.make201512.makeblock_adele;
 
 
 import android.app.Fragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -19,15 +18,22 @@ import android.widget.TextView;
  */
 public class WidgetFragment extends Fragment {
 
+    private static final String TAG = "WidgetFragment";
+
     TextView textView;
 
     int position;
 
-    CardView robotCardView;
+    ExpandableLayout ExpandableViewGroup;
 
-    LinearLayout linearLayout;
+    ExpandableLayout moveWidgets;
+    ExpandableLayout motorsWidgets;
+    ExpandableLayout servoWidgets;
 
     ImageView joystickIcon;
+
+    int[] widgetsIconId = {R.drawable.ic_joystick,R.drawable.ic_switch_ultrasonic,R.drawable.ic_switch_line_follow,
+                    R.drawable.};
 
     @Nullable
     @Override
@@ -40,35 +46,25 @@ public class WidgetFragment extends Fragment {
 
         textView.setText("Fragment" + position);
 
-        linearLayout = (LinearLayout) rootView.findViewById(R.id.widget_page_linear_layout);
+        moveWidgets = (ExpandableLayout) rootView.findViewById(R.id.widget_page_linear_layout);
 
-        addCardView();
-
-        linearLayout.addView(robotCardView);
+        for (int i = 0;i < 10;i++){
+            TextView textView = new TextView(getActivity());
+            textView = (TextView) setLayoutParams(textView);
+            textView.setText("TEXT" + i);
+            moveWidgets.addView(textView);
+        }
 
         return rootView;
     }
 
-    public void addCardView(){
+    public View setLayoutParams(View view){
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+        final float scale = getActivity().getResources().getDisplayMetrics().density;
+        layoutParams.topMargin = (int) (8 * scale + 0.5f);
+        view.setLayoutParams(layoutParams);
 
-        robotCardView = new CardView(getActivity());
-
-        CardView.LayoutParams cardViewLayoutParams = new CardView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
-        LinearLayout cardViewLinearLayout = new LinearLayout(getActivity());
-
-        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-
-        cardViewLinearLayout.setLayoutParams(linearLayoutParams);
-
-        joystickIcon = new ImageView(getActivity());
-        joystickIcon.setImageResource(R.drawable.ic_joystick);
-
-        cardViewLinearLayout.addView(joystickIcon);
-
-        robotCardView.setLayoutParams(cardViewLayoutParams);
-
-        robotCardView.addView(cardViewLinearLayout);
-
+        return view;
     }
+
 }

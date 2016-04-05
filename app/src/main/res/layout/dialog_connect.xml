@@ -29,16 +29,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <ImageView
-        android:id="@+id/radar_icon_link"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:adjustViewBounds="true"
-        android:maxHeight="26dp"
-        android:src="@drawable/nav_unlink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
     <com.example.make201512.makeblock_adele.Typer
         android:layout_centerVertical="true"
         android:textSize="24sp"

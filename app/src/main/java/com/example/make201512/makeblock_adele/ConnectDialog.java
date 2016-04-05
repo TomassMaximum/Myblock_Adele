@@ -32,9 +32,6 @@ public class ConnectDialog extends Dialog implements View.OnClickListener {
     //压缩后的Scanner位图
     Bitmap compressedScanner;
 
-    //蓝牙连接标识logo
-    ImageView iconLink;
-
     //蓝牙连接界面打印字母动画的类
     Typer typer;
 
@@ -53,12 +50,6 @@ public class ConnectDialog extends Dialog implements View.OnClickListener {
 
         //设置布局文件
         setContentView(R.layout.dialog_connect);
-
-        //找到连接icon的ImageView
-        iconLink = (ImageView) findViewById(R.id.radar_icon_link);
-
-        //给连接logo设置监听，点击蓝牙连接logo时关闭当前对话框
-        iconLink.setOnClickListener(this);
 
         //获取到压缩过的Scanner
         getScannerAndCompress();
