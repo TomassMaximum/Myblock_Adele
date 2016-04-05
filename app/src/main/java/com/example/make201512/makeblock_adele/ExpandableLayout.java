@@ -67,6 +67,7 @@ public class ExpandableLayout extends ViewGroup {
         }
 
         setMeasuredDimension(sizeWidth,lineHeight);
+        Log.e(TAG,"sizeWidth:" + sizeWidth + "lineHeight:" + lineHeight + "sizeHeight:" + sizeHeight);
 
     }
 
@@ -109,6 +110,8 @@ public class ExpandableLayout extends ViewGroup {
 
             //布局当前子View
             child.layout(left,top,right,bottom);
+
+            Log.e(TAG,"上下左右边距为：" + top + "::" + bottom +"::" + left +"::" + right);
 
         }
 
