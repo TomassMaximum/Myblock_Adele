@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 
 import android.support.v7.widget.CardView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,11 @@ public class WidgetFragment extends Fragment {
 
     int position;
 
-    ExpandableLayout expandableViewGroup;
+    LinearLayout expandableViewGroup;
+
+    CardView cardView;
+
+    LinearLayout cardHolder;
 
     ExpandableLayout moveWidgets;
     ExpandableLayout motorsWidgets;
@@ -82,32 +87,64 @@ public class WidgetFragment extends Fragment {
 
         textView.setText("Fragment" + position);
 
-        expandableViewGroup = (ExpandableLayout) rootView.findViewById(R.id.widget_page_linear_layout);
+        expandableViewGroup = (LinearLayout) rootView.findViewById(R.id.widget_page_linear_layout);
 
         getCorrespondingWidgetsGroup("");
+
+        expandableViewGroup.setGravity(Gravity.CENTER_HORIZONTAL);
+
+        cardView = new CardView(getActivity());
+
+        cardView.setPreventCornerOverlap(true);
+        cardView.setBackgroundColor(getResources().getColor(R.color.cardView));
+
+
+        cardHolder = new LinearLayout(getActivity());
+
+        cardHolder.setOrientation(LinearLayout.VERTICAL);
+
+        cardHolder.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         for (int i = 0;i < robotWidgetsIconId.length;i++){
 
             Bitmap widget = BitmapFactory.decodeResource(getResources(),robotWidgetsIconId[i]);
+            Log.e(TAG, "Bitmap宽高为：" + widget.getWidth() + "::::" + widget.getHeight());
             ImageView widgetHolder = new ImageView(getActivity());
+
             widgetHolder.setImageBitmap(widget);
             setLayoutParams(widgetHolder);
 
-            expandableViewGroup.addView(widgetHolder);
+            cardHolder.addView(widgetHolder);
 
         }
+
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        final float scale = getActivity().getResources().getDisplayMetrics().density;
+        layoutParams.topMargin = (int) (8 * scale + 0.5f);
+        layoutParams.leftMargin = (int) (8 * scale + 0.5f);
+        layoutParams.rightMargin = (int) (8 * scale + 0.5f);
+
+        cardView.setLayoutParams(layoutParams);
+
+        cardView.addView(cardHolder);
+
+        expandableViewGroup.addView(cardView);
 
         return rootView;
     }
 
-    public void setLayoutParams(View view){
+    public void setLayoutParams(ImageView view){
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
         final float scale = getActivity().getResources().getDisplayMetrics().density;
         layoutParams.topMargin = (int) (8 * scale + 0.5f);
+        layoutParams.leftMargin = (int) (8 * scale + 0.5f);
+        layoutParams.rightMargin = (int) (8 * scale + 0.5f);
 
-        Log.e(TAG,"Margin为" + layoutParams.topMargin + "");
+        Log.e(TAG, "Margin为" + layoutParams.topMargin + "");
 
         view.setLayoutParams(layoutParams);
+        view.setMaxWidth((int) (120 * scale + 0.5f));
+        view.setAdjustViewBounds(true);
     }
 
     public void getCorrespondingWidgetsGroup(String mainBoard){
