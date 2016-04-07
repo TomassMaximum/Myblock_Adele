@@ -1,9 +1,18 @@
 package com.example.make201512.makeblock_adele;
 
-
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.app.Fragment;
+import android.content.ClipData;
+import android.content.ClipDescription;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Point;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -13,6 +22,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,10 +44,6 @@ public class WidgetFragment extends Fragment {
     CardView cardView;
 
     LinearLayout cardHolder;
-
-    ExpandableLayout moveWidgets;
-    ExpandableLayout motorsWidgets;
-    ExpandableLayout servoWidgets;
 
     ImageView joystickIcon;
 
@@ -76,6 +83,8 @@ public class WidgetFragment extends Fragment {
     int[] sliderWidgetsIconId;
     int[] displayWidgetsIconId;
 
+    private static final String IMAGEVIEW_TAG = "ImageView";
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -113,6 +122,35 @@ public class WidgetFragment extends Fragment {
 
             widgetHolder.setImageBitmap(widget);
             setLayoutParams(widgetHolder);
+
+            widgetHolder.setTag(IMAGEVIEW_TAG);
+
+            widgetHolder.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+
+                    ImageView view = (ImageView) v;
+
+                    ClipData.Item item = new ClipData.Item((CharSequence) v.getTag());
+
+                    ClipData dragData = new ClipData((CharSequence)v.getTag(), new String[]{ClipDescription.MIMETYPE_TEXT_PLAIN},item);
+
+//                    ObjectAnimator scaleUp = ObjectAnimator.ofPropertyValuesHolder(v,
+//                            PropertyValuesHolder.ofFloat("scaleX", 1.5f),
+//                            PropertyValuesHolder.ofFloat("scaleY", 1.5f));
+//
+//                    scaleUp.setDuration(300);
+//                    scaleUp.start();
+
+
+
+                    View.DragShadowBuilder myShadow = new MyShadowBuilder(view,getActivity());
+
+                    v.startDrag(dragData,myShadow,null,0);
+
+                    return false;
+                }
+            });
 
             cardHolder.addView(widgetHolder);
 
@@ -160,4 +198,44 @@ public class WidgetFragment extends Fragment {
         }
     }
 
+    private static class MyShadowBuilder extends View.DragShadowBuilder{
+
+        ImageView view;
+        Context context;
+
+        MyShadowBuilder(ImageView view,Context context){
+            this.view = view;
+            this.context = context;
+        }
+
+        @Override
+        public void onProvideShadowMetrics(Point shadowSize, Point shadowTouchPoint) {
+//            super.onProvideShadowMetrics(shadowSize, shadowTouchPoint);
+
+            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.ic_joystick);
+
+            shadowSize.set(view.getWidth() * 2, view.getHeight() * 2);
+
+            shadowTouchPoint.set(shadowSize.x / 2, shadowSize.y / 2);
+        }
+
+        @Override
+        public void onDrawShadow(Canvas canvas) {
+//            view.setMaxWidth(500);
+//            view.setAdjustViewBounds(false);
+//
+//            view.setLayoutParams(new LinearLayout.LayoutParams(500,500));
+//
+//
+//
+//            Log.e(TAG,bitmap.getHeight() + "::::OOOOOOOOOOOOOOO:::" + bitmap.getWidth());
+//
+//            view.setImageBitmap(bitmap);
+            if (view != null) {
+                view.draw(canvas);
+            } else {
+                Log.e(TAG, "Asked to draw drag shadow but no view");
+            }
+        }
+    }
 }
