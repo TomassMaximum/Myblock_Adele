@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -85,6 +86,8 @@ public class WidgetFragment extends Fragment {
 
     private static final String IMAGEVIEW_TAG = "ImageView";
 
+    ImageView joystick;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -114,6 +117,8 @@ public class WidgetFragment extends Fragment {
 
         cardHolder.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
+        joystick = (ImageView) rootView.findViewById(R.id.image_view);
+
         for (int i = 0;i < robotWidgetsIconId.length;i++){
 
             Bitmap widget = BitmapFactory.decodeResource(getResources(),robotWidgetsIconId[i]);
@@ -131,9 +136,9 @@ public class WidgetFragment extends Fragment {
 
                     ImageView view = (ImageView) v;
 
-                    ClipData.Item item = new ClipData.Item((CharSequence) v.getTag());
+//                    ClipData.Item item = new ClipData.Item((CharSequence) v.getTag());
 
-                    ClipData dragData = new ClipData((CharSequence)v.getTag(), new String[]{ClipDescription.MIMETYPE_TEXT_PLAIN},item);
+                    ClipData dragData = ClipData.newPlainText("","");
 
 //                    ObjectAnimator scaleUp = ObjectAnimator.ofPropertyValuesHolder(v,
 //                            PropertyValuesHolder.ofFloat("scaleX", 1.5f),
@@ -142,9 +147,12 @@ public class WidgetFragment extends Fragment {
 //                    scaleUp.setDuration(300);
 //                    scaleUp.start();
 
+                    ImageView imageView = new ImageView(getActivity());
+                    imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT));
+                    imageView.setImageResource(R.drawable.ic_joystick);
+                    imageView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
 
-
-                    View.DragShadowBuilder myShadow = new MyShadowBuilder(view,getActivity());
+                    View.DragShadowBuilder myShadow = new View.DragShadowBuilder(joystick);
 
                     v.startDrag(dragData,myShadow,null,0);
 
@@ -214,7 +222,9 @@ public class WidgetFragment extends Fragment {
 
             Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.ic_joystick);
 
-            shadowSize.set(view.getWidth() * 2, view.getHeight() * 2);
+            view.setImageBitmap(bitmap);
+
+            shadowSize.set(view.getWidth(), view.getHeight());
 
             shadowTouchPoint.set(shadowSize.x / 2, shadowSize.y / 2);
         }
