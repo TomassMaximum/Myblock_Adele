@@ -15,16 +15,19 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.Nullable;
 
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -88,6 +91,8 @@ public class WidgetFragment extends Fragment {
 
     ImageView joystick;
 
+    int[] positions;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -136,25 +141,47 @@ public class WidgetFragment extends Fragment {
 
                     ImageView view = (ImageView) v;
 
-//                    ClipData.Item item = new ClipData.Item((CharSequence) v.getTag());
-
-                    ClipData dragData = ClipData.newPlainText("","");
-
-//                    ObjectAnimator scaleUp = ObjectAnimator.ofPropertyValuesHolder(v,
-//                            PropertyValuesHolder.ofFloat("scaleX", 1.5f),
-//                            PropertyValuesHolder.ofFloat("scaleY", 1.5f));
-//
-//                    scaleUp.setDuration(300);
-//                    scaleUp.start();
+                    positions = new int[2];
+                    view.getLocationOnScreen(positions);
 
                     ImageView imageView = new ImageView(getActivity());
-                    imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT));
                     imageView.setImageResource(R.drawable.ic_joystick);
-                    imageView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    imageView.setX(positions[0]);
+                    imageView.setY(positions[1]);
 
-                    View.DragShadowBuilder myShadow = new View.DragShadowBuilder(joystick);
+                    getActivity().addContentView(imageView,layoutParams);
 
-                    v.startDrag(dragData,myShadow,null,0);
+////                    Log.e(TAG,"View的大小为：" + view.getWidth() + ":::::" + view.getHeight());
+//
+////                    view.setMaxWidth(500);
+////                    view.setAdjustViewBounds(false);
+////
+////                    view.setLayoutParams(new LinearLayout.LayoutParams(500, 500));
+//
+////                    Log.e(TAG, "重设后View的大小为：" + view.getWidth() + ":::::" + view.getHeight());
+//
+////                    ClipData.Item item = new ClipData.Item((CharSequence) v.getTag());
+//
+//                    ClipData dragData = ClipData.newPlainText("","");
+//
+////                    ObjectAnimator scaleUp = ObjectAnimator.ofPropertyValuesHolder(v,
+////                            PropertyValuesHolder.ofFloat("scaleX", 1.5f),
+////                            PropertyValuesHolder.ofFloat("scaleY", 1.5f));
+////
+////                    scaleUp.setDuration(300);
+////                    scaleUp.start();
+//
+//                    ImageView imageView = new ImageView(getActivity());
+//                    imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+//                    imageView.setImageResource(R.drawable.ic_joystick);
+//                    imageView.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+//
+//                    View.DragShadowBuilder myShadow = new MyShadowBuilder(view,getActivity());
+//
+//
+//
+//                    v.startDrag(dragData,myShadow,view,0);
 
                     return false;
                 }
@@ -186,7 +213,7 @@ public class WidgetFragment extends Fragment {
         layoutParams.leftMargin = (int) (8 * scale + 0.5f);
         layoutParams.rightMargin = (int) (8 * scale + 0.5f);
 
-        Log.e(TAG, "Margin为" + layoutParams.topMargin + "");
+//        Log.e(TAG, "Margin为" + layoutParams.topMargin + "");
 
         view.setLayoutParams(layoutParams);
         view.setMaxWidth((int) (120 * scale + 0.5f));
@@ -206,46 +233,53 @@ public class WidgetFragment extends Fragment {
         }
     }
 
-    private static class MyShadowBuilder extends View.DragShadowBuilder{
-
-        ImageView view;
-        Context context;
-
-        MyShadowBuilder(ImageView view,Context context){
-            this.view = view;
-            this.context = context;
-        }
-
-        @Override
-        public void onProvideShadowMetrics(Point shadowSize, Point shadowTouchPoint) {
-//            super.onProvideShadowMetrics(shadowSize, shadowTouchPoint);
-
-            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.ic_joystick);
-
-            view.setImageBitmap(bitmap);
-
-            shadowSize.set(view.getWidth(), view.getHeight());
-
-            shadowTouchPoint.set(shadowSize.x / 2, shadowSize.y / 2);
-        }
-
-        @Override
-        public void onDrawShadow(Canvas canvas) {
-//            view.setMaxWidth(500);
+//    private static class MyShadowBuilder extends View.DragShadowBuilder{
+//
+//        ImageView view;
+//        Context context;
+//
+//        MyShadowBuilder(ImageView view,Context context){
+//            this.view = view;
+//            this.context = context;
+//        }
+//
+//        @Override
+//        public void onProvideShadowMetrics(Point shadowSize, Point shadowTouchPoint) {
+////            super.onProvideShadowMetrics(shadowSize, shadowTouchPoint);
+//
+////            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),R.drawable.ic_joystick);
+////
+////            view.setImageBitmap(bitmap);
+//
+//            Log.e(TAG, view.getWidth() + "----前----" + view.getHeight());
 //            view.setAdjustViewBounds(false);
+//            view.setMaxWidth(600);
+//            view.getLayoutParams().width = 600;
+//            view.getLayoutParams().height = 600;
 //
-//            view.setLayoutParams(new LinearLayout.LayoutParams(500,500));
+//            Log.e(TAG, view.getWidth() + "--------" + view.getHeight());
 //
+//            shadowSize.set(view.getWidth(), view.getHeight());
 //
+//            shadowTouchPoint.set(shadowSize.x / 2, shadowSize.y / 2);
+//        }
 //
-//            Log.e(TAG,bitmap.getHeight() + "::::OOOOOOOOOOOOOOO:::" + bitmap.getWidth());
+//        @Override
+//        public void onDrawShadow(Canvas canvas) {
+//            Log.e(TAG, "onDrawShadow()" + "被调用");
 //
-//            view.setImageBitmap(bitmap);
-            if (view != null) {
-                view.draw(canvas);
-            } else {
-                Log.e(TAG, "Asked to draw drag shadow but no view");
-            }
-        }
-    }
+//            int[] positions = new int[2];
+//
+//            view.getLocationOnScreen(positions);
+//
+//            Log.e(TAG,"位置为：" + positions[0] + "----" + positions[1]);
+//
+//            if (view != null) {
+//                view.draw(canvas);
+//
+//            } else {
+//                Log.e(TAG, "Asked to draw drag shadow but no view");
+//            }
+//        }
+//    }
 }
