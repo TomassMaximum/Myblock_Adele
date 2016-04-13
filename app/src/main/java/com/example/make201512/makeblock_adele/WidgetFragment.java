@@ -16,12 +16,14 @@ import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
@@ -135,22 +137,67 @@ public class WidgetFragment extends Fragment {
 
             widgetHolder.setTag(IMAGEVIEW_TAG);
 
-            widgetHolder.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
+            widgetHolder.setOnLongClickListener(new WidgetOnLongClickListener(i));
 
-                    ImageView view = (ImageView) v;
+            cardHolder.addView(widgetHolder);
 
-                    positions = new int[2];
-                    view.getLocationOnScreen(positions);
+        }
 
-                    ImageView imageView = new ImageView(getActivity());
-                    imageView.setImageResource(R.drawable.ic_joystick);
-                    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                    imageView.setX(positions[0]);
-                    imageView.setY(positions[1]);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        final float scale = getActivity().getResources().getDisplayMetrics().density;
+        layoutParams.topMargin = (int) (8 * scale + 0.5f);
+        layoutParams.leftMargin = (int) (8 * scale + 0.5f);
+        layoutParams.rightMargin = (int) (8 * scale + 0.5f);
 
-                    getActivity().addContentView(imageView,layoutParams);
+        cardView.setLayoutParams(layoutParams);
+
+        cardView.addView(cardHolder);
+
+        expandableViewGroup.addView(cardView);
+
+        return rootView;
+    }
+
+    private class WidgetOnLongClickListener implements View.OnLongClickListener {
+
+        int position;
+
+        WidgetOnLongClickListener(int position){
+            this.position = position;
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+
+            ImageView view = (ImageView) v;
+
+            positions = new int[2];
+            view.getLocationOnScreen(positions);
+
+            Bitmap widget = BitmapFactory.decodeResource(getResources(),robotWidgetsIconId[position]);
+
+            ImageView imageView = new ImageView(getActivity());
+            imageView.setImageBitmap(widget);
+
+            setLayoutParams(imageView);
+
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            imageView.setX(positions[0]);
+            imageView.setY(positions[1]);
+
+            getActivity().addContentView(imageView, layoutParams);
+
+            ObjectAnimator scaleUp = ObjectAnimator.ofPropertyValuesHolder(imageView,
+                            PropertyValuesHolder.ofFloat("scaleX", 1.5f),
+                            PropertyValuesHolder.ofFloat("scaleY", 1.5f));
+
+            scaleUp.setDuration(150);
+            scaleUp.start();
+
+            WidgetOnTouchListener widgetOnTouchListener = new WidgetOnTouchListener(imageView);
+            imageView.setOnTouchListener(widgetOnTouchListener);
+
+            Log.e(TAG,"onLongClick调用完毕");
 
 ////                    Log.e(TAG,"View的大小为：" + view.getWidth() + ":::::" + view.getHeight());
 //
@@ -183,27 +230,62 @@ public class WidgetFragment extends Fragment {
 //
 //                    v.startDrag(dragData,myShadow,view,0);
 
-                    return false;
-                }
-            });
+            return false;
+        }
+    }
 
-            cardHolder.addView(widgetHolder);
+    private class WidgetOnTouchListener implements View.OnTouchListener{
 
+        ImageView widgetView;
+
+        float positionX,positionY;
+
+        WidgetOnTouchListener(ImageView widgetView){
+            this.widgetView = widgetView;
+
+            onTouch(widgetView, MotionEvent.obtain(SystemClock.uptimeMillis(),SystemClock.uptimeMillis(),MotionEvent.ACTION_DOWN,200,200,1));
         }
 
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        final float scale = getActivity().getResources().getDisplayMetrics().density;
-        layoutParams.topMargin = (int) (8 * scale + 0.5f);
-        layoutParams.leftMargin = (int) (8 * scale + 0.5f);
-        layoutParams.rightMargin = (int) (8 * scale + 0.5f);
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
 
-        cardView.setLayoutParams(layoutParams);
+            Log.e(TAG,"OnTouch被调用");
 
-        cardView.addView(cardHolder);
+            int touchEvent = event.getAction();
+            switch (touchEvent){
+                case MotionEvent.ACTION_DOWN:{
 
-        expandableViewGroup.addView(cardView);
+                    Log.e(TAG,"按下了");
 
-        return rootView;
+                    positionX = widgetView.getX() - event.getRawX();
+                    positionY = widgetView.getY() - event.getRawY();
+
+                    break;
+                }
+                case MotionEvent.ACTION_MOVE:{
+
+                    widgetView.animate()
+                            .x(event.getRawX() + positionX)
+                            .y(event.getRawY() + positionY)
+                            .setDuration(0)
+                            .start();
+
+                    Log.e(TAG,"移动了" + event.getX() + ":::::" + event.getY());
+
+                    break;
+                }
+                case MotionEvent.ACTION_UP:{
+
+                    Log.e(TAG,"抬起了");
+
+                    break;
+                }
+                default:
+                    break;
+            }
+
+            return true;
+        }
     }
 
     public void setLayoutParams(ImageView view){
