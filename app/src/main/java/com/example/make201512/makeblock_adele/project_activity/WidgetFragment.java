@@ -1,4 +1,4 @@
-package com.example.make201512.makeblock_adele;
+package com.example.make201512.makeblock_adele.project_activity;
 
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
@@ -33,6 +33,10 @@ import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.make201512.makeblock_adele.MyImageView;
+import com.example.make201512.makeblock_adele.MyScrollView;
+import com.example.make201512.makeblock_adele.R;
 
 /**
  * Created by make201512 on 2016/4/2.
@@ -95,10 +99,14 @@ public class WidgetFragment extends Fragment {
 
     int[] positions;
 
+    MyScrollView myScrollView;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_widget_page,container,false);
+        View rootView = inflater.inflate(R.layout.fragment_widget_page, container, false);
+
+        myScrollView = (MyScrollView) rootView.findViewById(R.id.myScrollView);
 
         position = getArguments().getInt("position");
 
@@ -169,6 +177,8 @@ public class WidgetFragment extends Fragment {
         @Override
         public boolean onLongClick(View v) {
 
+            myScrollView.setWidgetIsLongClicked(true);
+
             ImageView view = (ImageView) v;
 
             positions = new int[2];
@@ -176,10 +186,12 @@ public class WidgetFragment extends Fragment {
 
             Bitmap widget = BitmapFactory.decodeResource(getResources(),robotWidgetsIconId[position]);
 
-            ImageView imageView = new ImageView(getActivity());
+            MyImageView imageView = new MyImageView(getActivity(),null);
             imageView.setImageBitmap(widget);
 
             setLayoutParams(imageView);
+
+            imageView.setWidgetIsTouched(true);
 
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             imageView.setX(positions[0]);

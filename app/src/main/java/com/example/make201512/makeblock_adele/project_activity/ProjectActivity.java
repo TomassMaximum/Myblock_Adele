@@ -1,4 +1,4 @@
-package com.example.make201512.makeblock_adele;
+package com.example.make201512.makeblock_adele.project_activity;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
@@ -14,6 +14,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.example.make201512.makeblock_adele.R;
 import com.getbase.floatingactionbutton.AddFloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;

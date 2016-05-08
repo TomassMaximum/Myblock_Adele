@@ -1,20 +1,24 @@
-package com.example.make201512.makeblock_adele;
+package com.example.make201512.makeblock_adele.home_activity;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 
+import com.example.make201512.makeblock_adele.R;
+import com.example.make201512.makeblock_adele.Constants;
+
 import java.io.InputStream;
 
 /**
- * Created by make201512 on 2016/3/22.
+ * Created by Tom on 2016/3/22.
  */
 public class ConnectDialog extends Dialog implements View.OnClickListener {
 
@@ -22,6 +26,9 @@ public class ConnectDialog extends Dialog implements View.OnClickListener {
 
     //雷达Scanner
     ImageView loginScanner;
+
+    //后退按键
+    ImageView backImageView;
 
     //Scanner的动画
     RotateAnimation scannerRotateAnimation;
@@ -54,6 +61,10 @@ public class ConnectDialog extends Dialog implements View.OnClickListener {
         //获取到压缩过的Scanner
         getScannerAndCompress();
 
+        //获取到后退按键并设置监听
+        backImageView = (ImageView) findViewById(R.id.connect_dialog_back);
+        backImageView.setOnClickListener(this);
+
         //设置Scanner位图到ImageView
         loginScanner = (ImageView) findViewById(R.id.login_scanner);
         loginScanner.setImageBitmap(compressedScanner);
@@ -82,11 +93,15 @@ public class ConnectDialog extends Dialog implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        //点击蓝牙连接icon时关闭当前对话框
-        this.dismiss();
-        if (Variable.isScreenChanged && blurBackground != null){
-            blurBackground.recycle();
-            Log.e(TAG,"Bitmap已回收");
+        switch (v.getId()){
+            case R.id.connect_dialog_back:{
+                //点击蓝牙连接icon时关闭当前对话框
+                this.dismiss();
+                if (Constants.isScreenChanged && blurBackground != null){
+                    blurBackground.recycle();
+                    Log.e(TAG,"Bitmap已回收");
+                }
+            }
         }
     }
 }

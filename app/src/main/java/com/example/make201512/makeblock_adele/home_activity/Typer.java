@@ -1,4 +1,4 @@
-package com.example.make201512.makeblock_adele;
+package com.example.make201512.makeblock_adele.home_activity;
 
 import android.content.Context;
 import android.os.Handler;

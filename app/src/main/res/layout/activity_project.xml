@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.make201512.makeblock_adele.ProjectActivity"
+    tools:context=".project_activity.ProjectActivity"
     android:background="@color/white">
 
     <android.support.v7.widget.Toolbar

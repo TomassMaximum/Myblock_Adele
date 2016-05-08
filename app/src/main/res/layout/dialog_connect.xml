@@ -9,6 +9,14 @@
     android:id="@+id/relative_layout">
 
     <ImageView
+        android:maxHeight="30dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/ic_arrow_back_white_48dp"
+        android:id="@+id/connect_dialog_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:maxHeight="360dp"
@@ -29,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <com.example.make201512.makeblock_adele.Typer
+    <com.example.make201512.makeblock_adele.home_activity.Typer
         android:layout_centerVertical="true"
         android:textSize="24sp"
         android:textColor="#424242"

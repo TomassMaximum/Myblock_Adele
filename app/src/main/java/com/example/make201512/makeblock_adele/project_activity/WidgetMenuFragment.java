@@ -1,4 +1,4 @@
-package com.example.make201512.makeblock_adele;
+package com.example.make201512.makeblock_adele.project_activity;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.make201512.makeblock_adele.R;
 
 /**
  * Created by make201512 on 2016/4/2.

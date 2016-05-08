@@ -1,4 +1,4 @@
-package com.example.make201512.makeblock_adele;
+package com.example.make201512.makeblock_adele.home_activity;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
@@ -13,13 +13,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.make201512.makeblock_adele.project_activity.ProjectActivity;
+import com.example.make201512.makeblock_adele.R;
+import com.example.make201512.makeblock_adele.Constants;
 import com.getbase.floatingactionbutton.AddFloatingActionButton;
 
-import java.io.InputStream;
-
 import at.markushi.ui.ActionView;
-import at.markushi.ui.action.BackAction;
-import at.markushi.ui.action.DrawerAction;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
@@ -40,8 +39,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     ActionView actionView;
 
-    MenuFragment menuFragment;
-
     AddFloatingActionButton addProjectFab;
 
     @Override
@@ -56,7 +53,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         iconLink.setOnClickListener(this);
 
         //设置是否第一次进入Activity标记为真，用于判断是否打开连接对话框
-        Variable.isFirstEnterMainActivity = true;
+        Constants.isFirstEnterMainActivity = true;
 
         //创建Handler的对象，用于更新UI
         handler = new MyHandler(this);
@@ -69,8 +66,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.fragment_container,mainFragment);
         fragmentTransaction.commit();
-
-        menuFragment = new MenuFragment();
     }
 
     @Override
@@ -82,9 +77,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
 
         //如果这是;第一次进入当前Activity且未连接设备，则开启一个线程进行截图操作，避免该动作阻塞主线程造成UI卡顿
-        if (Variable.isFirstEnterMainActivity && !Variable.isConnected){
-            new GetCompressedScreenShot(this).start();
-        }
+//        if (Constants.isFirstEnterMainActivity && !Constants.isConnected){
+//            new GetCompressedScreenShot(this).start();
+//        }
     }
 
     @Override
@@ -108,28 +103,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     }
 
-    public void showMenu(){
-        actionView.setAction(new BackAction(),ActionView.ROTATE_CLOCKWISE);
-
-        //在这里打开菜单碎片
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.anim.menu_fragment_in, R.anim.menu_fragment_out);
-
-        if (menuFragment.isAdded()){
-            fragmentTransaction.show(menuFragment).commit();
-        }else {
-            fragmentTransaction.add(R.id.menu_fragment_container,menuFragment).commit();
-        }
-    }
-
-    public void hideMenu(){
-        actionView.setAction(new DrawerAction(), ActionView.ROTATE_CLOCKWISE);
-        //在这里关闭菜单碎片
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.anim.menu_fragment_in,R.anim.menu_fragment_out);
-        fragmentTransaction.hide(menuFragment).commit();
-    }
-
     //用于截图、压缩截图、唤醒Handler的子线程内部类
     public class GetCompressedScreenShot extends Thread{
 
@@ -143,7 +116,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         @Override
         public void run() {
             //如果列表发生滑动屏幕改变，则重新截图并压缩加毛玻璃。如果未改变，则省去此步骤复用之前的图片以节约内存。
-            if (Variable.isScreenChanged || blurScreenShot == null){
+            if (Constants.isScreenChanged || blurScreenShot == null){
 
                 if (blurScreenShot != null){
                     blurScreenShot.recycle();
@@ -151,7 +124,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 }
 
                 getScreenShotAndCompress(rootView);
-                Variable.isScreenChanged = false;
+                Constants.isScreenChanged = false;
                 Log.e(TAG,"截图操作");
             }
 
@@ -179,7 +152,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
             connectDialog.show();
 
             //将第一次进入Activity标记设为false
-            Variable.isFirstEnterMainActivity = false;
+            Constants.isFirstEnterMainActivity = false;
         }
     }
 
